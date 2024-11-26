@@ -27,7 +27,7 @@ export const Ticker = () => {
             dragConstraints={{ left: -400-(index*16), right: 400-(index*16), top: -300, bottom: 300 }}
             whileHover={{
               scale: 1.05,
-              rotate: 5,
+              rotate: 5*index,
               transition: { type: 'keyframes', stiffness: 400 },
             }}
             initial={{ scale: 1.2, rotate: 5 * (index - 1) }}
