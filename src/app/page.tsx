@@ -1,21 +1,22 @@
-'use client';
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import ArrowUpRightIcon from '@/assets/arrow-up-right.svg';
-import LinkedinIcon from '@/assets/linkedin.svg';
-import GithubIcon from '@/assets/githubIcon.svg';
-import EmailIcon from '@/assets/email.svg';
-import Yellow from '@/assets/yellow-box.png';
-import Genogra from '@/assets/genogra.png';
-import { CustomCursor } from '@/components/customCursor';
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import ArrowUpRightIcon from "@/assets/arrow-up-right.svg";
+import LinkedinIcon from "@/assets/linkedin.svg";
+import GithubIcon from "@/assets/githubIcon.svg";
+import EmailIcon from "@/assets/email.svg";
+import Yellow from "@/assets/yellow-box.png";
+import Genogra from "@/assets/genogra.png";
+// import { CustomCursor } from '@/components/customCursor';
 
 // Animation variants
 const fadeInVariant = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+	hidden: { opacity: 0, y: 50 },
+	visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
+/*
 interface Duck {
   id: number;
   animationDuration: string;
@@ -98,176 +99,265 @@ function DuckHuntGame() {
     </div>
   );
 }
+*/
+
+const useTypewriter = (speed = 80) => {
+	const texts = [
+		"hola",
+		"hello",
+		"ciao",
+		"salut",
+		"hallo",
+		"hej",
+		"oi",
+		"ahoj",
+		"cześć",
+		"namaste",
+		"konnichiwa",
+		"ni hao",
+		"salam",
+		"merhaba",
+		"shalom",
+		"sawubona",
+		"jambo",
+		"sawasdee",
+		"xin chào",
+		"kamusta",
+		"hyālō",
+	];
+	const [greetingIndex, setGreetingIndex] = useState(0);
+	const [displayText, setDisplayText] = useState("");
+	const [deleting, setDeleting] = useState(false);
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const currentText = `${texts[greetingIndex]}`;
+
+	useEffect(() => {
+		const typingInterval = setInterval(() => {
+			if (!deleting) {
+				if (currentIndex < currentText.length) {
+					setDisplayText((prev) => prev + currentText[currentIndex]);
+					setCurrentIndex((prev) => prev + 1);
+				} else {
+					setTimeout(() => setDeleting(true), 1000);
+				}
+			} else {
+				if (displayText.length > 0) {
+					setDisplayText((prev) => prev.slice(0, -1));
+				} else {
+					setDeleting(false);
+					setCurrentIndex(0);
+					setGreetingIndex((prev) => (prev + 1) % texts.length);
+				}
+			}
+		}, speed);
+
+		return () => clearInterval(typingInterval);
+	}, [currentText, speed, deleting, currentIndex, displayText]);
+
+	return displayText;
+};
+
+const Typewriter = () => {
+	const displayText = useTypewriter();
+	return (
+		<h1 className="text-4xl font-bold mb-4">
+			{displayText} 👋🏻, Gabriele here!
+		</h1>
+	);
+};
 
 export default function Home() {
-  return (
-    <div className="container mx-auto max-w-6xl px-4 py-16 md:py-20 lg:py-24">
-      <CustomCursor />
-      <ul className="list-none space-y-16">
-        {/* Introduction Section */}
-        <motion.li
-          variants={fadeInVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <div className="flex flex-col items-start text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-bold text-white pb-6 tracking-tight">hola 👋🏻, Gabriele here!</h2>
-            <p className="text-white/70 tracking-tight leading-relaxed text-justify">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae, voluptas? Suscipit iure impedit possimus
-              obcaecati, reiciendis quaerat id perspiciatis excepturi, neque voluptate facilis, ratione nihil. Id dicta
-              praesentium consequuntur ducimus.
-            </p>
-          </div>
-        </motion.li>
+	return (
+		<div className="container mx-auto max-w-6xl px-4 py-16 md:py-20 lg:py-24">
+			{/* <CustomCursor /> */}
+			<ul className="list-none space-y-16">
+				{/* Introduction Section */}
+				<motion.li
+					variants={fadeInVariant}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+				>
+					<div className="flex flex-col items-start text-center md:text-left">
+						<Typewriter />
+						<p className="text-white/70 tracking-tight leading-relaxed text-justify">
+							💻 Junior Software Engineer at ELCA Information Technology in
+							Italy 🇮🇹 🎓 <br />
+							MSc in Computer Science and Engineering from Politecnico di Milano
+							🏫
+							<br /> On the side, I’m passionate about sharing insights on Tech
+							and Software Development through my blog ✍️📖
+						</p>
+					</div>
+				</motion.li>
 
-        {/* Duck Hunt Game Section */}
-        <motion.li
-          variants={fadeInVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <DuckHuntGame />
-        </motion.li>
+				{/* Duck Hunt Game Section */}
+				<motion.li
+					variants={fadeInVariant}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+				>
+					{/* <DuckHuntGame /> */}
+				</motion.li>
 
-        {/* Links Section */}
-        <motion.li
-          variants={fadeInVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <div className="flex flex-col items-center md:items-start gap-6">
-            <h2 className="text-sm font-light text-white/60 md:w-1/5">Connect</h2>
-            <div className="w-full">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a
-                  className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center hover:bg-[#232323] transition"
-                  href="https://github.com/gabrielekarra"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="flex items-center gap-3">
-                    <GithubIcon className="w-5 h-5" />
-                    GitHub
-                  </div>
-                  <ArrowUpRightIcon className="h-5 w-5 text-white/70" />
-                </a>
-                <a
-                  className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center hover:bg-[#232323] transition"
-                  href="https://www.linkedin.com/in/salvatoregabrielekarra/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="flex items-center gap-3">
-                    <LinkedinIcon className="w-4 h-4 fill-white" />
-                    LinkedIn
-                  </div>
-                  <ArrowUpRightIcon className="h-5 w-5 text-white/70" />
-                </a>
-                <a
-                  className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center sm:col-span-2 hover:bg-[#232323] transition"
-                  href="mailto:gabrielekarra@hotmail.it"
-                >
-                  <div className="flex items-center gap-3">
-                    <EmailIcon className="w-5 h-5" />
-                    E-mail
-                  </div>
-                  <ArrowUpRightIcon className="h-5 w-5 text-white/70" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </motion.li>
+				{/* Links Section */}
+				<motion.li
+					variants={fadeInVariant}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+				>
+					<div className="flex flex-col items-center md:items-start gap-6">
+						<h2 className="text-sm font-light text-white/60 md:w-1/5">
+							Connect
+						</h2>
+						<div className="w-full">
+							<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+								<a
+									className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center hover:bg-[#232323] transition"
+									href="https://github.com/gabrielekarra"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<div className="flex items-center gap-3">
+										<GithubIcon className="w-5 h-5" />
+										GitHub
+									</div>
+									<ArrowUpRightIcon className="h-5 w-5 text-white/70" />
+								</a>
+								<a
+									className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center hover:bg-[#232323] transition"
+									href="https://www.linkedin.com/in/salvatoregabrielekarra/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<div className="flex items-center gap-3">
+										<LinkedinIcon className="w-4 h-4 fill-white" />
+										LinkedIn
+									</div>
+									<ArrowUpRightIcon className="h-5 w-5 text-white/70" />
+								</a>
+								<a
+									className="bg-[#191919] p-4 rounded-lg font-light text-sm flex justify-between items-center sm:col-span-2 hover:bg-[#232323] transition"
+									href="mailto:gabrielekarra@hotmail.it"
+								>
+									<div className="flex items-center gap-3">
+										<EmailIcon className="w-5 h-5" />
+										E-mail
+									</div>
+									<ArrowUpRightIcon className="h-5 w-5 text-white/70" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</motion.li>
 
-        {/* News Section */}
-        <motion.li
-          variants={fadeInVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <h2 className="text-sm font-light text-white/60 md:w-1/5 mb-6">News</h2>
-          <div className="flex flex-col md:flex-row items-start gap-6 mb-6">
-            <ul>
-              {[...Array(3)].map((_, idx) => (
-                <li key={idx} className="mb-6 flex justify-between">
-                  <div className="text-white/80 w-4/5 text-base tracking-tighter">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique saepe at minima quasi
-                    consectetur, ex sunt. Dolores quidem alias cum, deserunt iusto obcaecati voluptate perspiciatis
-                    mollitia. Perferendis cumque possimus aut.
-                  </div>
-                  <div className="text-white/60 text-sm">Nov 25, 2024</div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.li>
+				{/* News Section */}
+				<motion.li
+					variants={fadeInVariant}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+				>
+					<h2 className="text-sm font-light text-white/60 md:w-1/5 mb-6">
+						News
+					</h2>
+					<div className="flex flex-col md:flex-row items-start gap-6 mb-6 w-full">
+						<ul className="w-full">
+							<li className="mb-6 flex justify-between items-center">
+								<a
+									href="/blog#cvRef"
+									className="w-4/5 tracking-tighter flex gap-4 items-center bg-white p-6 rounded-lg text-black justify-center"
+								>
+									<div className="w-full tracking-tighter flex gap-4 items-center bg-white rounded-lg text-black justify-center">
+										"How to Craft a CV That'll Make Big Tech Beg for You", a
+										little guide on how to make your CV stand out.
+										<ArrowUpRightIcon className="h-4 w-4 text-black" />
+									</div>
+								</a>
+								<div className="text-sm">Nov 25, 2024</div>
+							</li>
+						</ul>
+					</div>
+				</motion.li>
 
-        {/* Recent Projects Section */}
-        <motion.li
-          variants={fadeInVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <div className="flex flex-col md:flex-row items-start gap-6 mb-6">
-            <h2 className="text-sm font-light text-white/60 md:w-1/5">What I'm working on</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {[Genogra, Yellow].map((image, idx) => (
-              <HoverLightCard key={idx} image={image.src} idx={idx} />
-            ))}
-          </div>
-        </motion.li>
-      </ul>
-    </div>
-  );
+				{/* Recent Projects Section */}
+				<motion.li
+					variants={fadeInVariant}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.3 }}
+				>
+					<div className="flex flex-col md:flex-row items-start gap-6 mb-6">
+						<h2 className="text-sm font-light text-white/60 md:w-1/5">
+							What I'm working on
+						</h2>
+					</div>
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+						{[Genogra].map((image, idx) => (
+							<HoverLightCard key={idx} image={image.src} idx={idx} />
+						))}
+					</div>
+				</motion.li>
+			</ul>
+		</div>
+	);
 }
 
 function HoverLightCard({ image, idx }: { image: string; idx: number }) {
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | null>(null);
+	const [mousePosition, setMousePosition] = useState<{
+		x: number;
+		y: number;
+	} | null>(null);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePosition({ x, y });
-  };
+	const handleMouseMove = (e: React.MouseEvent) => {
+		const rect = e.currentTarget.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		setMousePosition({ x, y });
+	};
 
-  const handleMouseLeave = () => {
-    setMousePosition(null); // Reset light position on mouse leave
-  };
+	const handleMouseLeave = () => {
+		setMousePosition(null); // Reset light position on mouse leave
+	};
 
-  return (
-    <motion.div
-      className="max-w-xs mx-auto relative group cursor-pointer"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* Light effect */}
-      {mousePosition && (
-        <motion.div
-          className="absolute inset-0 pointer-events-none rounded-lg"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.2), transparent 60%)`,
-          }}
-        ></motion.div>
-      )}
+	return (
+		<motion.div
+			className="max-w-xs mx-auto relative group cursor-pointer"
+			onMouseMove={handleMouseMove}
+			onMouseLeave={handleMouseLeave}
+		>
+			{/* Light effect */}
+			{mousePosition && (
+				<motion.div
+					className="absolute inset-0 pointer-events-none rounded-lg"
+					style={{
+						background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.2), transparent 60%)`,
+					}}
+				></motion.div>
+			)}
 
-      {/* Card Content */}
-      <div className="rounded-lg bg-[#191919] overflow-hidden shadow-lg group-hover:shadow-2xl transition duration-300">
-        <div className="relative w-full h-48">
-          <Image src={image} alt={`Card Image ${idx}`} className="object-cover w-full h-full" layout="fill" />
-        </div>
-        <div className="p-4 bg-[#0d0d0d]">
-          <h3 className="text-lg font-semibold text-white">Project {idx + 1}</h3>
-          <p className="text-sm text-white/60 mt-2">
-            Open source analytics dashboard built with Django with over 200k visitors.
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
+			{/* Card Content */}
+			<div className="rounded-lg bg-[#191919] overflow-hidden shadow-lg group-hover:shadow-2xl transition duration-300">
+				<div className="relative w-full h-48">
+					<Image
+						src={image}
+						alt={`Card Image ${idx}`}
+						className="object-cover w-full h-full"
+						layout="fill"
+					/>
+				</div>
+				<div className="p-4 bg-[#0d0d0d]">
+					<h3 className="text-lg font-semibold text-white">Master Thesis</h3>
+					<p className="text-sm text-white/60 mt-2">
+						Accelleration of POASTA, a new optimal algorithm for partial order
+						alignment that exploits long stretches of matching sequence between
+						the graph and a query.
+					</p>
+				</div>
+			</div>
+		</motion.div>
+	);
 }
