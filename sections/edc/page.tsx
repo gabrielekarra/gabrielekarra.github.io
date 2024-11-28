@@ -1,5 +1,5 @@
-import { Scroll } from "@/components/edcHeader";
-import { Ticker } from "@/components/tickerMusic";
+import { Scroll } from "../../components/edcHeader";
+import { Ticker } from "../../components/tickerMusic";
 
 export default function Edc() {
 	return (

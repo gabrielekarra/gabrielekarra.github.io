@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { Header } from "@/sections/Header";
+import { Header } from "../sections/Header";
 import "./globals.css";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
@@ -19,8 +19,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en" className="relative">
-			<body className={twMerge(dmSans.className, "antialiased bg-black/95 text-white overflow-x-hidden")}>
-			<Header />
+			<body
+				className={twMerge(
+					dmSans.className,
+					"antialiased bg-black/95 text-white overflow-x-hidden",
+				)}
+			>
+				<Header />
 				{children}
 			</body>
 		</html>
