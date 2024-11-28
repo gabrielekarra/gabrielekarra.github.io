@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import ElcaLogo from "@/assets/elca.png";
-import Polimi from "@/assets/polimi.png";
-import Unipa from "@/assets/unipa.png";
-import Genogra from "@/assets/genogra.png";
+import ElcaLogo from "../../assets/elca.png";
+import Polimi from "../../assets/polimi.png";
+import Unipa from "../../assets/unipa.png";
+import Genogra from "../../assets/genogra.png";
 import Map3d from "../../components/map";
 import { Ticker } from "../../components/tickerMusic";
 

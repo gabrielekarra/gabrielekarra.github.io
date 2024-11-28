@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { Header } from "../sections/Header";
-import "./globals.css";
+import "../app/styles/globals.css";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
 
