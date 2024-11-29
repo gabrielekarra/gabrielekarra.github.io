@@ -12,7 +12,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Disables server-side image optimization
   },
-  basePath: "", // Adjust this to match your GitHub repo name if deploying to a subdirectory
 };
 
 export default nextConfig;
