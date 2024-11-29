@@ -8,7 +8,7 @@ import GithubIcon from "../assets/githubIcon.svg";
 import EmailIcon from "../assets/email.svg";
 import Yellow from "../assets/yellow-box.png";
 import Genogra from "../assets/genogra.png";
-import "../app/styles/globals.css";
+import "./styles/globals.css";
 // import { CustomCursor } from '@/components/customCursor';
 
 // Animation variants
