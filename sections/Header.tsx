@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
-export const Header = () => {
+export default function Header(){
 	const [activeLink, setActiveLink] = useState("/");
 	const [highlightStyles, setHighlightStyles] = useState({});
 	const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);

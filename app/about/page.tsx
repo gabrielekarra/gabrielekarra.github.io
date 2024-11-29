@@ -8,7 +8,7 @@ import Polimi from "../../assets/polimi.png";
 import Unipa from "../../assets/unipa.png";
 import Genogra from "../../assets/genogra.png";
 import Map3d from "../../components/map";
-import { Ticker } from "../../components/tickerMusic";
+import Ticker from "../../components/tickerMusic";
 
 export default function About() {
 	const fadeIn = {

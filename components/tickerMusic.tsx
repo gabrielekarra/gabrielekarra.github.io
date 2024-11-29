@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Jungle from "../assets/jungle.png";
 import Islanda from "../assets/islanda.png";
 import Rovere from "../assets/rovere.png";
-export const Ticker = () => {
+export default function Ticker(){
 	const [currentTrack, setCurrentTrack] = useState("1sVv8VsR6cNERctCp9OOLH");
 	const albums = [
 		{ src: Jungle.src, trackId: "4X4R6qsIicxIQIFbnDcJLO" },

@@ -1,8 +1,7 @@
-'use client';
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { Header } from "../sections/Header";
+import  Header  from "../sections/Header";
 import "./styles/globals.css";
 
 const dmSans = DM_Sans({ subsets: ["latin"] });
