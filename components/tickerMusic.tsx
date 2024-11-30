@@ -18,8 +18,8 @@ export default function Ticker() {
 	};
 
 	return (
-		<div className="p-4">
-			<div className="flex justify - center items - center gap - 4">
+		<div className="p-4 w-full">
+			<div className="flex justify-center items-center gap-4 w-full">
 				{albums.map((album, index) => (
 					<motion.div
 						key={index}
@@ -31,12 +31,7 @@ export default function Ticker() {
 							top: -300,
 							bottom: 300,
 						}}
-						whileHover={{
-							scale: 1.05,
-							rotate: 5 * index,
-							transition: { type: "keyframes", stiffness: 400 },
-						}}
-						initial={{ scale: 1.2, rotate: 5 * (index - 1) }}
+						initial={{ rotate: 5 * (index - 1) }}
 						whileTap={{ scale: 0.95, cursor: "grabbing" }}
 						onDragEnd={(event, info) => {
 							const playerElement = document.getElementById("spotify-player");
@@ -50,11 +45,13 @@ export default function Ticker() {
 							}
 						}}
 					>
-						<div className="p-4">
+						<div className="p-4 flex justify-center">
 							<img
 								src={album.src}
 								alt="Album cover"
-								className="w-auto h-1/3 object-cover"
+								className="object-cover"
+								height={300}
+								width={300}
 							/>
 							<div className="absolute top-0 left-0 right-0 bottom-0 bg-none opacity-30"></div>
 						</div>
@@ -66,7 +63,6 @@ export default function Ticker() {
 				className="w-full mt-4"
 				style={{ borderRadius: "12px" }}
 				src={`https://open.spotify.com/embed/track/${currentTrack}`}
-				width="100%"
 				height="152"
 				allowFullScreen
 				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
