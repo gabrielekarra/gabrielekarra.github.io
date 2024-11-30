@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Jungle from "../assets/jungle.png";
+import Holly from "../assets/olly.png";
 import Islanda from "../assets/islanda.png";
 import Rovere from "../assets/rovere.png";
 
 export default function Ticker() {
 	const [currentTrack, setCurrentTrack] = useState("1sVv8VsR6cNERctCp9OOLH");
 	const albums = [
-		{ src: Jungle.src, trackId: "4X4R6qsIicxIQIFbnDcJLO" },
+		{ src: Holly.src, trackId: "4X4R6qsIicxIQIFbnDcJLO" },
 		{ src: Rovere.src, trackId: "1sVv8VsR6cNERctCp9OOLH" },
 		{ src: Islanda.src, trackId: "25mDnFOFyPmebNAok8mavk" },
 	];
