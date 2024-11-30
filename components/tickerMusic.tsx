@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import Jungle from "../assets/jungle.png";
 import Islanda from "../assets/islanda.png";
 import Rovere from "../assets/rovere.png";
-export default function Ticker(){
+
+export default function Ticker() {
 	const [currentTrack, setCurrentTrack] = useState("1sVv8VsR6cNERctCp9OOLH");
 	const albums = [
 		{ src: Jungle.src, trackId: "4X4R6qsIicxIQIFbnDcJLO" },
@@ -17,8 +18,8 @@ export default function Ticker(){
 	};
 
 	return (
-		<div>
-			<div className="flex justify-center items-center -gap-6">
+		<div className="p-4">
+			<div className="flex justify - center items - center gap - 4">
 				{albums.map((album, index) => (
 					<motion.div
 						key={index}
@@ -53,7 +54,7 @@ export default function Ticker(){
 							<img
 								src={album.src}
 								alt="Album cover"
-								className="w-full h-fit object-cover"
+								className="w-1/3 h-auto object-cover"
 							/>
 							<div className="absolute top-0 left-0 right-0 bottom-0 bg-none opacity-30"></div>
 						</div>
@@ -62,6 +63,7 @@ export default function Ticker(){
 			</div>
 			<iframe
 				id="spotify-player"
+				className="w-full mt-4"
 				style={{ borderRadius: "12px" }}
 				src={`https://open.spotify.com/embed/track/${currentTrack}`}
 				width="100%"
@@ -73,4 +75,4 @@ export default function Ticker(){
 			></iframe>
 		</div>
 	);
-};
+}
