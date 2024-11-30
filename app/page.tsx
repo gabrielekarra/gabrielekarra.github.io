@@ -131,30 +131,31 @@ const useTypewriter = (speed = 80) => {
 	const [deleting, setDeleting] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
-	const currentText = `${texts[greetingIndex]}`;
-
 	useEffect(() => {
-		const typingInterval = setInterval(() => {
-			if (!deleting) {
-				if (currentIndex < currentText.length) {
-					setDisplayText((prev) => prev + currentText[currentIndex]);
-					setCurrentIndex((prev) => prev + 1);
-				} else {
-					setTimeout(() => setDeleting(true), 1000);
-				}
-			} else {
-				if (displayText.length > 0) {
-					setDisplayText((prev) => prev.slice(0, -1));
-				} else {
-					setDeleting(false);
-					setCurrentIndex(0);
-					setGreetingIndex((prev) => (prev + 1) % texts.length);
-				}
-			}
-		}, speed);
+		let typingTimeout: NodeJS.Timeout;
 
-		return () => clearInterval(typingInterval);
-	}, [currentText, speed, deleting, currentIndex, displayText]);
+		if (!deleting && currentIndex < texts[greetingIndex].length) {
+			typingTimeout = setTimeout(() => {
+				setDisplayText((prev) => prev + texts[greetingIndex][currentIndex]);
+				setCurrentIndex((prev) => prev + 1);
+			}, speed);
+		} else if (!deleting && currentIndex === texts[greetingIndex].length) {
+			typingTimeout = setTimeout(() => {
+				setDeleting(true);
+			}, 2000);
+		} else if (deleting && displayText.length > 0) {
+			typingTimeout = setTimeout(() => {
+				setDisplayText((prev) => prev.slice(0, -1));
+				setCurrentIndex((prev) => prev - 1);
+			}, speed);
+		} else if (deleting && displayText.length === 0) {
+			setDeleting(false);
+			setCurrentIndex(0);
+			setGreetingIndex((prev) => (prev + 1) % texts.length);
+		}
+
+		return () => clearTimeout(typingTimeout);
+	}, [currentIndex, deleting, displayText, greetingIndex, speed]);
 
 	return displayText;
 };
@@ -162,7 +163,7 @@ const useTypewriter = (speed = 80) => {
 const Typewriter = () => {
 	const displayText = useTypewriter();
 	return (
-		<h1 className="text-4xl font-bold mb-4">
+		<h1 className="font-bold mb-4 text-2xl md:text-4xl">
 			{displayText} 👋🏻, Gabriele here!
 		</h1>
 	);
@@ -261,21 +262,22 @@ export default function Home() {
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
+					className="flex flex-col items-center md:items-start"
 				>
 					<h2 className="text-sm font-light text-white/60 md:w-1/5 mb-6">
 						News
 					</h2>
-					<div className="flex flex-col md:flex-row items-start gap-6 mb-6 w-full">
+					<div className="flex flex-col md:flex-row items-start gap-6 w-full">
 						<ul className="w-full">
-							<li className="mb-6 flex justify-between items-center">
+							<li className="flex flex-col items-center md:justify-between md:flex-row">
 								<a
 									href="/blog#cvRef"
-									className="w-4/5 tracking-tighter flex gap-4 items-center bg-white p-6 rounded-lg text-black justify-center"
+									className="w-3/5 md:w-4/5 tracking-tighter flex gap-4 items-center bg-white p-6 rounded-lg text-black justify-center"
 								>
 									<div className="w-full tracking-tighter flex gap-4 items-center bg-white rounded-lg text-black justify-center">
 										"How to Craft a CV That'll Make Big Tech Beg for You", a
 										little guide on how to make your CV stand out.
-										<ArrowUpRightIcon className="h-4 w-4 text-black" />
+										<ArrowUpRightIcon className="hidden md:block h-4 w-4 text-black" />
 									</div>
 								</a>
 								<div className="text-sm">Nov 25, 2024</div>
@@ -291,7 +293,7 @@ export default function Home() {
 					whileInView="visible"
 					viewport={{ once: true, amount: 0.3 }}
 				>
-					<div className="flex flex-col md:flex-row items-start gap-6 mb-6">
+					<div className="flex flex-col items-center md:items-start pb-6">
 						<h2 className="text-sm font-light text-white/60 md:w-1/5">
 							What I'm working on
 						</h2>

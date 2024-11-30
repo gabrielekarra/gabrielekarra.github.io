@@ -161,7 +161,7 @@ export default function About() {
 										<div>
 											<h1 className="font-semibold text-white">Genogra</h1>
 											<p className="font-light text-sm text-gray-400">
-												Politecnico di Milano Thesis: Lorem
+												Politecnico di Milano Thesis
 											</p>
 										</div>
 									</div>
