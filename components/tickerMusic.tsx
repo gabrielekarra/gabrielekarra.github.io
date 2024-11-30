@@ -54,7 +54,7 @@ export default function Ticker() {
 							<img
 								src={album.src}
 								alt="Album cover"
-								className="w-1/3 h-auto object-cover"
+								className="w-auto h-1/3 object-cover"
 							/>
 							<div className="absolute top-0 left-0 right-0 bottom-0 bg-none opacity-30"></div>
 						</div>
